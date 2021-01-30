@@ -106,6 +106,20 @@ cc_test(
 				"@fmt//:fmt"
 		],
 )
+cc_test(
+    name = "bench_pstr_use",
+        srcs = ["tests/bench_pstr_use.cpp"],
+        deps = [
+            "mmap_lib_test_lib",
+                "//lbench:headers",
+        "@com_google_absl//absl/container:flat_hash_map",
+        "@com_google_absl//absl/container:flat_hash_set",
+        "@com_google_absl//absl/container:node_hash_map",
+        "@com_google_absl//absl/container:node_hash_set",
+                "@gtest//:gtest_main",
+                "@fmt//:fmt"
+        ],
+)
 
 cc_test(
     name = "mmap_map_test",
