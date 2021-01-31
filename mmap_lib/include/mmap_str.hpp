@@ -45,8 +45,15 @@ protected:
     return c>='0' && c <='9';
   }
 
-public:
 
+public:
+  void test () const{//make sure that test does not modify stuff
+
+      std::cout << "This is ptr_or_start:"<< ptr_or_start<<std::endl;
+      std::cout << "This is e:"<< e <<std::endl;
+      std::cout <<"This is _size:"<< _size<<std::endl;
+
+  }
   // Must be constexpr to allow fast (constexpr) cmp for things like IDs.
   template<std::size_t N, typename = std::enable_if_t<(N-1)<14>>
     constexpr str(const char(&s)[N]): ptr_or_start(0), e{0}, _size(N-1) { // N-1 because str includes the zero

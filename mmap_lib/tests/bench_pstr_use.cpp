@@ -31,7 +31,7 @@ void mmap_pstr( std::string_view name) {
 	//mmap_lib::map<uint32_t, uint64_t> map("lgdb_bench", name);
 	*/
 	mmap_lib::str foo("Hello");
-  std::cout << "here";
+  foo.test();
 
 }
 
