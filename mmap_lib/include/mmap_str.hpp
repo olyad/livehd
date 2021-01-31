@@ -4,7 +4,7 @@
 #include <array>
 #include <cstdint>
 #include <string_view>
-
+#include "mmap_map.hpp"
 namespace mmap_lib {
 
 class str {

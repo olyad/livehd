@@ -8,7 +8,7 @@
 #include "lbench.hpp"
 #include "flat_hash_map.hpp"
 #include <type_traits>
-#include "mmap_pstr.hpp"
+#include "mmap_str.hpp"
 #include "mmap_map.hpp"
 
 
@@ -30,7 +30,7 @@ void mmap_pstr( std::string_view name) {
 	mmap_lib::vset<uint32_t, uint32_t> set("lgdb_bench", name);
 	//mmap_lib::map<uint32_t, uint64_t> map("lgdb_bench", name);
 	*/
-	mmap_lib::str<12, uint16_t > foo("Hello");
+	mmap_lib::str foo("Hello");
   std::cout << "here";
 
 }
