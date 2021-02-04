@@ -4,9 +4,13 @@
 #include <array>
 #include <cstdint>
 #include <string_view>
+<<<<<<< HEAD
 #include <stdio.h>
 #include <stdlib.h>
 
+=======
+#include "mmap_map.hpp"
+>>>>>>> 11afae2d20857b98e5aa08ec125651938742ccfb
 namespace mmap_lib {
 
 class str {
@@ -48,11 +52,19 @@ protected:
     return c>='0' && c <='9';
   }
 
-public:
 
+public:
+  void test () const{//make sure that test does not modify stuff
+
+      std::cout << "This is ptr_or_start:" << ptr_or_start << std::endl;
+      std::cout << "This is e[2]:" << e[2] << std::endl;
+      std::cout << "This is _size:" << _size << std::endl;
+
+  }
   // Must be constexpr to allow fast (constexpr) cmp for things like IDs.
   template<std::size_t N, typename = std::enable_if_t<(N-1)<14>>
     constexpr str(const char(&s)[N]): ptr_or_start(0), e{0}, _size(N-1) { // N-1 because str includes the zero
+      std::cout << "constructor 1" << std::endl;
       auto stop    = _size<4?_size:4;
       isptr =  _size<14?false:true;
       for(auto i=0;i<stop;++i) {
@@ -76,6 +88,7 @@ public:
 
   template<std::size_t N, typename = std::enable_if_t<(N-1)>=14>, typename=void>
     constexpr str(const char(&s)[N]): ptr_or_start(0), e{0}, _size(N-1) { // N-1 because str includes the zero
+      std::cout << "constructor 2" << std::endl;
       ptr_or_start = 0;
       auto e_pos   = 0u;
       for(auto i=(N-1-8);i<N-1;++i) { // 8 (not 10 to allow to grow a bit) last positions
@@ -96,6 +109,7 @@ public:
   constexpr str(std::string_view sv) : ptr_or_start(0), e{0}, _size(sv.size()) {
     // FIXME: maybe short maybe long
     if (sv.size()<14) { // FIXME: create method to share this code with str short char constructor
+      std::cout << "constructor 3" << std::endl;
       auto stop    = _size<4?_size:4;
       for(auto i=0;i<stop;++i) {
         ptr_or_start <<= 8;
