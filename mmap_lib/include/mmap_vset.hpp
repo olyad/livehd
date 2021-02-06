@@ -13,7 +13,7 @@ namespace mmap_lib {
 // data will be the BitMap (various numbers of different bits)
 
 template <typename Key, typename T>
-class vset {
+class vset {  
 public:
   using VisitorSet = typename mmap_lib::map<Key, T>;
   VisitorSet   visitor_set;
