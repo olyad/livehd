@@ -4,7 +4,13 @@
 #include <array>
 #include <cstdint>
 #include <string_view>
+<<<<<<< HEAD
+#include <stdio.h>
+#include <stdlib.h>
+
+=======
 #include "mmap_map.hpp"
+>>>>>>> 11afae2d20857b98e5aa08ec125651938742ccfb
 namespace mmap_lib {
 
 class str {
@@ -40,6 +46,7 @@ protected:
   uint32_t ptr_or_start;  // 4 chars if _size < 14, ptr to mmap otherwise
   std::array<char, 10> e; // last 10 "special <128" characters ending the string
   uint16_t _size;          // 2 bytes
+  bool isptr= false;
 
   constexpr bool is_digit(char c) const {
     return c>='0' && c <='9';
@@ -49,15 +56,17 @@ protected:
 public:
   void test () const{//make sure that test does not modify stuff
 
-      std::cout << "This is ptr_or_start:"<< ptr_or_start<<std::endl;
-      std::cout << "This is e:"<< e <<std::endl;
-      std::cout <<"This is _size:"<< _size<<std::endl;
+      std::cout << "This is ptr_or_start:" << ptr_or_start << std::endl;
+      std::cout << "This is e[2]:" << e[2] << std::endl;
+      std::cout << "This is _size:" << _size << std::endl;
 
   }
   // Must be constexpr to allow fast (constexpr) cmp for things like IDs.
   template<std::size_t N, typename = std::enable_if_t<(N-1)<14>>
     constexpr str(const char(&s)[N]): ptr_or_start(0), e{0}, _size(N-1) { // N-1 because str includes the zero
+      std::cout << "constructor 1" << std::endl;
       auto stop    = _size<4?_size:4;
+      isptr =  _size<14?false:true;
       for(auto i=0;i<stop;++i) {
         ptr_or_start <<= 8;
         ptr_or_start |= s[i];
@@ -79,6 +88,7 @@ public:
 
   template<std::size_t N, typename = std::enable_if_t<(N-1)>=14>, typename=void>
     constexpr str(const char(&s)[N]): ptr_or_start(0), e{0}, _size(N-1) { // N-1 because str includes the zero
+      std::cout << "constructor 2" << std::endl;
       ptr_or_start = 0;
       auto e_pos   = 0u;
       for(auto i=(N-1-8);i<N-1;++i) { // 8 (not 10 to allow to grow a bit) last positions
@@ -99,6 +109,7 @@ public:
   constexpr str(std::string_view sv) : ptr_or_start(0), e{0}, _size(sv.size()) {
     // FIXME: maybe short maybe long
     if (sv.size()<14) { // FIXME: create method to share this code with str short char constructor
+      std::cout << "constructor 3" << std::endl;
       auto stop    = _size<4?_size:4;
       for(auto i=0;i<stop;++i) {
         ptr_or_start <<= 8;
@@ -149,6 +160,17 @@ public:
   [[nodiscard]] constexpr std::size_t max_size() const { return 65535; }
 
   [[nodiscard]] constexpr bool empty() const { return 0 == _size; }
+
+  [[nodiscard]] void print_PoS() {std::cout << ptr_or_start << std::endl;}
+  [[nodiscard]] void print_e() {  // e is weird, printing question marks
+    std::cout << "e is: ";
+    for (int i = 0; i < 10 ; ++i) {
+      std::cout << int(e.at(i));
+    }
+    std::cout << std::endl;
+  }
+  [[nodiscard]] void print_size() {std::cout << "String size is:" << _size << std::endl;}
+
 
   template<std::size_t N>
   constexpr bool operator==(const char(&s)[N]) const {
@@ -204,10 +226,77 @@ public:
   static str concat(const str &a, const str &b);
   static str concat(std::string_view a, const str &b);
   static str concat(const str &a, std::string_view b);
-  static str concat(const str &a, int v);
+  static str concat(const str &a, int v); // just puts two things together concat(x, b); -> x.append(b)
+                                          //                               concat(b, x); -> b.append(x)
 
-  std::vector<str> split(const char chr);
 
+  // New Stuff:
+  str append(const str       &b) const; // adds to the end, x.append(b); x<=b
+  str append(std::string_view b) const;
+  str append(int              b) const;
+
+
+  std::vector<str> split(const char chr); // used as a tokenizing func, return vector of pstr's
+
+  bool is_i() const{ // starts with digit -> is integer
+    //this fun works when str size is <14   
+    if(!isptr){
+      char chars[5];
+      std::cout << "chars[] inside is_i(): ";
+      for (int i =3, j=0;i>=0;i--,j++){
+         chars[j] = (ptr_or_start >> (i*sizeof(char)*8)) & 0x000000ff;
+         std::cout << chars[j];
+      } 
+      std::cout << std::endl;
+      if (chars[0]!='-' and( chars[0]<'0' or chars[0]> '9')) {
+        std::cout << "Non-number char detected in ptr_or_start[0]\n";
+        return false; 
+      }
+      for (int i= 1; i<(_size>4?4:_size);i++){
+        switch (chars[i]){
+          case '0'...'9':
+            break;
+          default:
+            std::cout << "Non-number char detected in ptr_or_start[1:3]\n";
+            return false;
+            break;
+        }
+      }
+      for (int i=0; i<(_size>4?_size-4:0);i++){
+        switch (e[i]){
+          case '0'...'9':
+            break;
+          default:
+            std::cout << "Non-number char detected in e\n";
+            return false;
+            break;
+        }
+      }
+    }
+    return true;  
+  } 
+  
+
+  // How to handle if it's not an int?
+  // what to return/exceptions?
+  int64_t to_i() const { // only works if _size < 14
+    /*
+    if (this.is_i()) {  
+      int64_t hold = 0;
+      // convert ptr_or_start first
+      // convert e next
+    } else {
+      return;
+    } 
+  */  
+  } // convert to integer
+
+
+  str get_str_after_last (const char chr) const; 
+  str get_str_after_first(const char chr) const;
+
+  str get_str_before_last (const char chr) const;
+  str get_str_before_first(const char chr) const;
 };
 
 }  // namespace mmap_lib
