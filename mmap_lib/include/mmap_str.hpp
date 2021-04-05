@@ -323,6 +323,7 @@ public:
   // mmap-lib::str foo("oly");
   // foo[0] <-- 'o'
   // OLY
+  #if 0
   constexpr char operator[](std::size_t pos) const {
 #ifndef NDEBUG
     if (pos >= _size)
@@ -332,12 +333,24 @@ public:
       if (pos < 4)
         return (ptr_or_start >> (8 * (3 - pos))) & 0xFF;
       return e[pos - 4];  // FIXME: this fails if string has digits like "f33a"
+    } else {
+      /*
+      e[0] = s[0]; e[1] = s[1];
+    // the last eight characters saved in e
+    for (int i = 0; i < 8; i++) { e[9 - i] = s[_size - 1 - i]; }
+      */
+
+      if(pos <2){
+        return e[pos];
+      } elseif (pos >= (_size-8)) {
+        return e[_size - pos];
+      } else{
+        return string_vector.at(ptr_or_start+pos-2);
+
+      }
     }
-
-    assert(false);  // FIXME for long strings
-    return 0;
   }
-
+ #endif
   // SLOAN
   // checks if *this pstr starts with st
   bool starts_with(const str &st) const { 
