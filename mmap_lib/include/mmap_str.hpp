@@ -503,7 +503,67 @@ public:
 */
 
   //OLY
-  bool        is_i() const;  // starts with digit -> is integer
+  //bool        is_i() const;  // starts with digit -> is integer
+  //oly
+  
+  bool is_i() const{ 
+    if (_size < 14) {
+    char first = ((ptr_or_start >> (8 * (3 - 0))) & 0xFF);
+    if (first !='-' and( first <'0' or first > '9')) {
+    std::cout << "Non-number char detected in ptr_or_start[0]\n";
+    return false;
+    }
+    
+    for (int i= 1; i<(_size>4?4:_size);i++){
+      switch ((ptr_or_start >> (8 * (3 - i))) & 0xFF){
+        case '0'...'9':
+          break;
+        default:
+          std::cout << "Non-number char detected in ptr_or_start[1:3]\n";
+          return false;
+          break;
+      }
+    }
+    for (int i=0; i<(_size>4?_size-4:0);i++){
+      switch (e[i]){
+        case '0'...'9':
+          break;
+        default:
+          std::cout << "Non-number char detected in e\n";
+          return false;
+          break;
+      }
+    }
+    } else {
+      for (int i = 0;i<10 ; i++){
+        switch (e[i]){
+        case '0'...'9':
+          break;
+        default:
+          std::cout << "Non-number char detected in e\n";
+          return false;
+          break;
+      } 
+      }
+      for (j = ptr_or_start ; j< _size-10;j++){
+        switch (string_vector.at(i)){
+        case '0'...'9':
+          break;
+        default:
+          std::cout << "Non-number char detected in e\n";
+          return false;
+          break;
+      }
+
+      }
+
+
+    }
+    return true;
+  }
+
+
+
   int64_t     to_i() const;  // convert to integer
   std::string to_s() const;  // convert to string
 
