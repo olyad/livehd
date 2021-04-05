@@ -298,36 +298,32 @@ void pstr_at_operator(){
   (micro[17] == 'e') ? p++ : f++;
   (micro[3] == 'r') ? p++ : f++;
   (micro[2] == 'c') ? p++ : f++;
-
-  //micro.print_e();
-  std::cout << "hi at 1" << hi[1] << "stuff " << std::endl;
-
   (foo[0] == '-') ? p++ : f++;
   (foo[1] == '-') ? p++ : f++;
   printf("passed(%02d/%02d), failed(%02d/%02d)\n", p, p+f, f, p+f);
 }
 
-/*
+
 void pstr_isI(){
   std::cout << "pstr_isI Tests: ";
   mmap_lib::str hello("hello");
-  mmap_lib::str eight("h8");
-  mmap_lib::str neg_one("-1");
+  mmap_lib::str eight("888888");
+  mmap_lib::str neg_one("-111111");
   mmap_lib::str not_i("123g5");
   mmap_lib::str not_int("-1234f");
   mmap_lib::str zero("-1234f");
   mmap_lib::str num_float("12.34");
   uint8_t p = 0u ,f = 0u;
-  if (hello.is_i() == false) ? p++ : f++;
-  if (eight.is_i() == true) ? p++ : f++;
-  if (neg_one.is_i() == true) ? p++ : f++;
-  if (not_i.is_i() == false) ? p++ : f++;
-  if (not_int.is_i() == false) ? p++ : f++;
-  if (zero.is_i() == true) ? p++ : f++;
-  if (num_float.is_i() == false) ? p++ : f++;
-  printf("passed(%02d/%02d), failed(%02d/%02d)\n", r, p+f, f, p+f);
+  (hello.is_i() == false) ? p++ : f++;
+  (eight.is_i() == true) ? p++ : f++;
+  (neg_one.is_i() == true) ? p++ : f++;
+  (not_i.is_i() == false) ? p++ : f++;
+  (not_int.is_i() == false) ? p++ : f++;
+  (zero.is_i() == false) ? p++ : f++;
+  (num_float.is_i() == false) ? p++ : f++;
+  printf("passed(%02d/%02d), failed(%02d/%02d)\n", p, p+f, f, p+f);
 }
-*/
+
 
 int main(int argc, char **argv) {
   //mmap_pstr_ctor_tests();
@@ -335,7 +331,7 @@ int main(int argc, char **argv) {
   std::cout << "==========================" << std::endl;
  
   pstr_at_operator();
- // pstr_isI();
+  pstr_isI();
   std::cout << "==========================" << std::endl;
   
  /* 

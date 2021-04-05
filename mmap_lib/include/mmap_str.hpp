@@ -336,24 +336,14 @@ public:
         if(_size == 3) return (ptr_or_start >> (8 * (2 - pos))) & 0xFF;
         return (ptr_or_start >> (8 * (3 - pos))) & 0xFF;
       }else{
-        return e[pos - 4];  // FIXME: this fails if string has digits like "f33a"
+        return e[pos - 4];
       }
     } else {
-      /*
-      e[0] = s[0]; e[1] = s[1];
-    // the last eight characters saved in e
-    for (int i = 0; i < 8; i++) { e[9 - i] = s[_size - 1 - i]; }
-      */
-
       if(pos <2){
-        //std::cout << "small e" << std::endl;
         return e[pos];
       } else if (pos >= (_size-8)) {
-         //std::cout << "big e" << std::endl;
-         //std::cout << "size is:" << _size << std::endl;
-         return e[10 -( _size - pos)];
+        return e[10 -( _size - pos)];
       } else{
-        //std::cout << "in string vector" << std::endl;
         return string_vector.at(ptr_or_start+pos-2);
 
       }
@@ -447,23 +437,19 @@ public:
   // ?
   std::vector<str> split(const char chr);  // used as a tokenizing func, return vector of pstr's
 
-  /*
-  bool is_i() const{ // starts with digit -> is integer
-    //this fun works when str size is <14
-    //if(!isptr){
-      char chars[5];
-      std::cout << "chars[] inside is_i(): ";
-      for (int i =3, j=0;i>=0;i--,j++){
-         chars[j] = (ptr_or_start >> (i*sizeof(char)*8)) & 0x000000ff;
-         std::cout << chars[j];
-      }
-      std::cout << std::endl;
-      if (chars[0]!='-' and( chars[0]<'0' or chars[0]> '9')) {
+  //OLY
+  //bool        is_i() const;  // starts with digit -> is integer
+  //oly
+  
+  bool is_i() const{ 
+    if (_size < 14) {
+      char first = ((ptr_or_start >> (8 * (3 - 0))) & 0xFF);
+      if (first !='-' and( first <'0' or first > '9')) {
         std::cout << "Non-number char detected in ptr_or_start[0]\n";
         return false;
       }
       for (int i= 1; i<(_size>4?4:_size);i++){
-        switch (chars[i]){
+        switch ((ptr_or_start >> (8 * (3 - i))) & 0xFF){
           case '0'...'9':
             break;
           default:
@@ -482,86 +468,30 @@ public:
             break;
         }
       }
-    //}
-    return true;
-  }
-
-
-  // How to handle if it's not an int?
-  // what to return/exceptions?
-  int64_t to_i() const { // only works if _size < 14
-
-    if (this.is_i()) {
-      int64_t hold = 0;
-      // convert ptr_or_start first
-      // convert e next
-    } else {
-      return;
-    }
-
-  } // convert to integer
-*/
-
-  //OLY
-  //bool        is_i() const;  // starts with digit -> is integer
-  //oly
-  
-  bool is_i() const{ 
-    if (_size < 14) {
-    char first = ((ptr_or_start >> (8 * (3 - 0))) & 0xFF);
-    if (first !='-' and( first <'0' or first > '9')) {
-    std::cout << "Non-number char detected in ptr_or_start[0]\n";
-    return false;
-    }
-    
-    for (int i= 1; i<(_size>4?4:_size);i++){
-      switch ((ptr_or_start >> (8 * (3 - i))) & 0xFF){
-        case '0'...'9':
-          break;
-        default:
-          std::cout << "Non-number char detected in ptr_or_start[1:3]\n";
-          return false;
-          break;
-      }
-    }
-    for (int i=0; i<(_size>4?_size-4:0);i++){
-      switch (e[i]){
-        case '0'...'9':
-          break;
-        default:
-          std::cout << "Non-number char detected in e\n";
-          return false;
-          break;
-      }
-    }
     } else {
       for (int i = 0;i<10 ; i++){
         switch (e[i]){
-        case '0'...'9':
-          break;
-        default:
-          std::cout << "Non-number char detected in e\n";
-          return false;
-          break;
-      } 
+          case '0'...'9':
+            break;
+          default:
+            std::cout << "Non-number char detected in e\n";
+            return false;
+            break;
+        } 
       }
-      for (j = ptr_or_start ; j< _size-10;j++){
+      for (int i = ptr_or_start ; i< _size-10;i++){
         switch (string_vector.at(i)){
-        case '0'...'9':
-          break;
-        default:
-          std::cout << "Non-number char detected in e\n";
-          return false;
-          break;
+          case '0'...'9':
+            break;
+          default:
+            std::cout << "Non-number char detected in e\n";
+            return false;
+            break;
+        }
       }
-
-      }
-
-
     }
     return true;
   }
-
 
 
   int64_t     to_i() const;  // convert to integer
