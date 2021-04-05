@@ -277,6 +277,7 @@ void pstrVcstr_noeq_tests() {
   r += test_neq(amethysts,   chi,          true); ++t;
   printf("passed(%02d/%02d), failed(%02d/%02d)\n", r, t, t-r, t);
 }
+
 void pstr_at_operator(){
   std::cout << "pstr_at_operator Operator [] Tests: ";
   mmap_lib::str hello("hello");
@@ -285,16 +286,28 @@ void pstr_at_operator(){
   mmap_lib::str micro("micro-architecture");
   mmap_lib::str foo("--foo1234567890!!!");
   uint8_t p = 0u ,f = 0u;
-  if (hello[2] == 'l') ? p++ : f++;
-  if (hello[0] == 'h') ? p++ : f++;
-  if (hello[1] == 'e') ? p++ : f++;
-  if (micro[0] == 'm') ? p++ : f++;
-  if (micro[5] == '-') ? p++ : f++;
-  if (micro[10] == 'i') ? p++ : f++;
-  if (foo[0] == '-') ? p++ : f++;
-  if (foo[1] == '-') ? p++ : f++;
-  printf("passed(%02d/%02d), failed(%02d/%02d)\n", r, p+f, f, p+f);
+  (hello[2] == 'l') ? p++ : f++;
+  (hello[0] == 'h') ? p++ : f++;
+  (hello[1] == 'e') ? p++ : f++;
+  (hi[0] == 'h') ? p++ : f++;
+  (hi[1] == 'i') ? p++ : f++;
+  (micro[1] == 'i') ? p++ : f++;
+  (micro[5] == '-') ? p++ : f++;
+  (micro[10] == 'i') ? p++ : f++;
+  (micro[9] == 'h') ? p++ : f++;
+  (micro[17] == 'e') ? p++ : f++;
+  (micro[3] == 'r') ? p++ : f++;
+  (micro[2] == 'c') ? p++ : f++;
+
+  //micro.print_e();
+  std::cout << "hi at 1" << hi[1] << "stuff " << std::endl;
+
+  (foo[0] == '-') ? p++ : f++;
+  (foo[1] == '-') ? p++ : f++;
+  printf("passed(%02d/%02d), failed(%02d/%02d)\n", p, p+f, f, p+f);
 }
+
+/*
 void pstr_isI(){
   std::cout << "pstr_isI Tests: ";
   mmap_lib::str hello("hello");
@@ -314,20 +327,15 @@ void pstr_isI(){
   if (num_float.is_i() == false) ? p++ : f++;
   printf("passed(%02d/%02d), failed(%02d/%02d)\n", r, p+f, f, p+f);
 }
+*/
 
 int main(int argc, char **argv) {
   //mmap_pstr_ctor_tests();
   
   std::cout << "==========================" << std::endl;
-  pstrVchar_eqeq_tests(); 
-  pstrVchar_noeq_tests(); 
-  pstrVpstr_eqeq_tests(); 
-  pstrVpstr_noeq_tests(); 
-  pstrVcstr_eqeq_tests(); 
-  pstrVcstr_noeq_tests(); 
-  //
+ 
   pstr_at_operator();
-  pstr_isI();
+ // pstr_isI();
   std::cout << "==========================" << std::endl;
   
  /* 

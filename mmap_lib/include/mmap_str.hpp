@@ -323,16 +323,21 @@ public:
   // mmap-lib::str foo("oly");
   // foo[0] <-- 'o'
   // OLY
-  #if 0
+  
   constexpr char operator[](std::size_t pos) const {
 #ifndef NDEBUG
     if (pos >= _size)
       throw std::out_of_range("");
 #endif
     if (_size < 14) {
-      if (pos < 4)
+      if (pos < 4){
+        if(_size == 1) return (ptr_or_start >> (8 * (0 - pos))) & 0xFF;
+        if(_size == 2) return (ptr_or_start >> (8 * (1 - pos))) & 0xFF;
+        if(_size == 3) return (ptr_or_start >> (8 * (2 - pos))) & 0xFF;
         return (ptr_or_start >> (8 * (3 - pos))) & 0xFF;
-      return e[pos - 4];  // FIXME: this fails if string has digits like "f33a"
+      }else{
+        return e[pos - 4];  // FIXME: this fails if string has digits like "f33a"
+      }
     } else {
       /*
       e[0] = s[0]; e[1] = s[1];
@@ -341,16 +346,20 @@ public:
       */
 
       if(pos <2){
+        //std::cout << "small e" << std::endl;
         return e[pos];
-      } elseif (pos >= (_size-8)) {
-        return e[_size - pos];
+      } else if (pos >= (_size-8)) {
+         //std::cout << "big e" << std::endl;
+         //std::cout << "size is:" << _size << std::endl;
+         return e[10 -( _size - pos)];
       } else{
+        //std::cout << "in string vector" << std::endl;
         return string_vector.at(ptr_or_start+pos-2);
 
       }
     }
   }
- #endif
+ 
   // SLOAN
   // checks if *this pstr starts with st
   bool starts_with(const str &st) const { 
