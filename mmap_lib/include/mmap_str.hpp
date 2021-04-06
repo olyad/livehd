@@ -331,10 +331,10 @@ public:
 #endif
     if (_size < 14) {
       if (pos < 4){
-        if(_size == 1) return (ptr_or_start >> (8 * (0 - pos))) & 0xFF;
-        if(_size == 2) return (ptr_or_start >> (8 * (1 - pos))) & 0xFF;
-        if(_size == 3) return (ptr_or_start >> (8 * (2 - pos))) & 0xFF;
-        return (ptr_or_start >> (8 * (3 - pos))) & 0xFF;
+        //if(_size == 1) return (ptr_or_start >> (8 * (0 - pos))) & 0xFF;
+        //if(_size == 2) return (ptr_or_start >> (8 * (1 - pos))) & 0xFF;
+        //if(_size == 3) return (ptr_or_start >> (8 * (2 - pos))) & 0xFF;
+        return (ptr_or_start >> (8 * ((_size-1) - pos))) & 0xFF;
       }else{
         return e[pos - 4];
       }
@@ -443,7 +443,7 @@ public:
   
   bool is_i() const{ 
     if (_size < 14) {
-      char first = ((ptr_or_start >> (8 * (3 - 0))) & 0xFF);
+      char first = ((ptr_or_start >> (8 * (_size -1))) & 0xFF);
       if (first !='-' and( first <'0' or first > '9')) {
         std::cout << "Non-number char detected in ptr_or_start[0]\n";
         return false;
@@ -469,7 +469,12 @@ public:
         }
       }
     } else {
-      for (int i = 0;i<10 ; i++){
+      char first = e[0];
+      if (first !='-' and( first <'0' or first > '9')) {
+        std::cout << "Non-number char detected in ptr_or_start[0]\n";
+        return false;
+      }
+      for (int i = 1;i<10 ; i++){
         switch (e[i]){
           case '0'...'9':
             break;
@@ -501,10 +506,16 @@ public:
     }  
   
   }
+
+
+  std::string to_s() const{  // convert to string
+  
+    std::string temp ;
+    //put chars in temp
+    return temp;
+  
+  }
 #endif
-
-  std::string to_s() const;  // convert to string
-
   //?
   str get_str_after_last(const char chr) const;
   str get_str_after_first(const char chr) const;
