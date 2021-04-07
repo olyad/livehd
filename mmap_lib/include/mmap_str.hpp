@@ -409,7 +409,8 @@ public:
   }
 
   //OLY
-  //std::size_t find(const str &v, std::size_t pos = 0) const;
+ 
+  std::size_t find(const str &v, std::size_t pos = 0) const;
 #if 0
 
   std::size_t find(const str &v, std::size_t pos = 0) const{
