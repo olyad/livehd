@@ -331,10 +331,10 @@ public:
 #endif
     if (_size < 14) {
       if (pos < 4){
-        //if(_size == 1) return (ptr_or_start >> (8 * (0 - pos))) & 0xFF;
-        //if(_size == 2) return (ptr_or_start >> (8 * (1 - pos))) & 0xFF;
-        //if(_size == 3) return (ptr_or_start >> (8 * (2 - pos))) & 0xFF;
-        return (ptr_or_start >> (8 * ((_size-1) - pos))) & 0xFF;
+        if(_size == 1) return (ptr_or_start >> (8 * (0 - pos))) & 0xFF;
+        if(_size == 2) return (ptr_or_start >> (8 * (1 - pos))) & 0xFF;
+        if(_size == 3) return (ptr_or_start >> (8 * (2 - pos))) & 0xFF;
+        return (ptr_or_start >> (8 * (3 - pos))) & 0xFF;
       }else{
         return e[pos - 4];
       }
