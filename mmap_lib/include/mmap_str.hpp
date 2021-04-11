@@ -10,6 +10,8 @@
 
 #include "mmap_map.hpp"
 
+find_small_size(const str &my, const str &v, std::size_t pos = 0);
+
 namespace mmap_lib {
 
 class str {
