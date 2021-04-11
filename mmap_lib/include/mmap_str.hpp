@@ -410,7 +410,7 @@ public:
 
   //OLY
  
-  //std::size_t find(const str &v, std::size_t pos = 0) const; 
+  std::size_t find(const str &v, std::size_t pos = 0) const; 
 
 #if 0
 //can we do change v->std:string to_s
@@ -585,14 +585,14 @@ public:
   }
 
 #endif
-#if 0 
+//#if 0 
   std::string to_s() const{  // convert to string
   
     std::string out ;
     if (_size <= 14 ){
       //adding charactors from ptr_or_start based on the size of the string
       for (int i =0; i<(_size>4) ? 4: _size; i++){
-        out += (ptr_or_start >> (8 * ((3-i) - pos))) & 0xFF;
+        out += (ptr_or_start >> (8 * (3-i))) & 0xFF;
       }
       //if there are any characotrs in e, we add them as well
       if(_size>4){
@@ -618,7 +618,7 @@ public:
     return out;
   
   }
-#endif
+//#endif
   //?
   str get_str_after_last(const char chr) const;
   str get_str_after_first(const char chr) const;
