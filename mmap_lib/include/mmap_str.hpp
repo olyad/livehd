@@ -410,8 +410,12 @@ public:
 
   //OLY
  
-  std::size_t find(const str &v, std::size_t pos = 0) const;
+  //std::size_t find(const str &v, std::size_t pos = 0) const; 
+
 #if 0
+//can we do change v->std:string to_s
+//and this  to v->string
+//use the find itself
 
   std::size_t find(const str &v, std::size_t pos = 0) const{
 
@@ -469,29 +473,12 @@ public:
     
     } else{
 
-      if (v._size < 14){
-
-      } else {
-        char first = v.e[0];
-        int count = 0;
-        for (i = 0; i<2 ;i++){
-          if (first == e[i]) &&(pos <= i){
-            retval = i;
-            found_flag = true;
-            for (j = 1; j<v._size ; j++){
-              if (count < 1){
-                if (e[count + 1] != v.e[1])
-              } else {
-
-              }
-              count ++
-            }
-          }
-          count ++;
-        }
-
-      }
-
+      //can we do change v->std:string to_s
+      //and this  to v->string
+      //use the find itself
+      std::string my_string= to_s(this);
+      std::string their_string = to_s (v);
+      return my_string.std::find(their_string);
     }
 
 
@@ -597,12 +584,38 @@ public:
   
   }
 
-
+#endif
+#if 0 
   std::string to_s() const{  // convert to string
   
-    std::string temp ;
-    //put chars in temp
-    return temp;
+    std::string out ;
+    if (_size <= 14 ){
+      //adding charactors from ptr_or_start based on the size of the string
+      for (int i =0; i<(_size>4) ? 4: _size; i++){
+        out += (ptr_or_start >> (8 * ((3-i) - pos))) & 0xFF;
+      }
+      //if there are any characotrs in e, we add them as well
+      if(_size>4){
+        for(int i =0 ; i< (_size-4); i++){
+          out += e[i];
+        }
+      }
+    } else{
+      //adding the first two charactors
+      for (int i =0; i< 2; i++){
+        out += e[i];
+      }
+      //adding the middle section of the string from string vector
+      for (int i = ptr_or_start; i < (ptr_or_start + _size - 10); i++) {   
+        out += string_vector.at(i);
+      }
+      //adding the last 8 charactors
+      for (int i = 2; i<10; i++){
+        out += e[i];
+      }
+
+    }
+    return out;
   
   }
 #endif
