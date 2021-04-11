@@ -410,9 +410,9 @@ public:
 
   //OLY
  
- // std::size_t find(const str &v, std::size_t pos = 0) const; 
+  //std::size_t find(const str &v, std::size_t pos = 0) const; 
 
-#if 0
+
   std::size_t find(const str &v, std::size_t pos = 0) const{
 
     if (v._size >_size) return -1;
@@ -430,7 +430,7 @@ public:
         found_flag = false;
         e_pos_self =0;
         e_pos_thier =0;
-        if (first == ((ptr_or_start >> (8 * (3 - i))) & 0xFF)) && pos >= i {
+        if ((first == ((ptr_or_start >> (8 * (3 - i))) & 0xFF)) and  ( pos >= i)) {
           retval = i;
           found_flag = true;
           for ( j = i,  k =1; j< 4; j++,k++){
@@ -462,20 +462,18 @@ public:
         if (found_flag == true) return retval;
       }
       //if you havent found the string at this point and this string is < 4 chaars then find returns -1
-      if(_size < 4 ) and (found_flag == false) return -1;
+      //if((_size < 4 ) and (found_flag == false)) return -1;
       return -1;
     
     } else {
-    	std::string my_string= to_s(this);
-    	std::string their_string = to_s (v);
-    	return my_string.std::find(their_string);
+    	std::string my_string = this->to_s();
+    	std::string their_string = v.to_s ();
+    	return my_string.find(their_string);
     }
 
 
   }
  
-
-#endif 
 
   std::size_t find(char c, std::size_t pos = 0) const;
   template <std::size_t N>
