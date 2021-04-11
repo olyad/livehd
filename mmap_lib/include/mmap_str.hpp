@@ -410,13 +410,9 @@ public:
 
   //OLY
  
-  std::size_t find(const str &v, std::size_t pos = 0) const; 
+ // std::size_t find(const str &v, std::size_t pos = 0) const; 
 
 #if 0
-//can we do change v->std:string to_s
-//and this  to v->string
-//use the find itself
-
   std::size_t find(const str &v, std::size_t pos = 0) const{
 
     if (v._size >_size) return -1;
@@ -467,18 +463,12 @@ public:
       }
       //if you havent found the string at this point and this string is < 4 chaars then find returns -1
       if(_size < 4 ) and (found_flag == false) return -1;
-      
-      if (found_flag = true) return retval;
       return -1;
     
-    } else{
-
-      //can we do change v->std:string to_s
-      //and this  to v->string
-      //use the find itself
-      std::string my_string= to_s(this);
-      std::string their_string = to_s (v);
-      return my_string.std::find(their_string);
+    } else {
+    	std::string my_string= to_s(this);
+    	std::string their_string = to_s (v);
+    	return my_string.std::find(their_string);
     }
 
 
