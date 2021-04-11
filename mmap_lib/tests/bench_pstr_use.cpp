@@ -323,7 +323,7 @@ void pstr_isI(){
   (num_float.is_i() == false) ? p++ : f++;
   printf("passed(%02d/%02d), failed(%02d/%02d)\n", p, p+f, f, p+f);
 }
-void pstr_toS(){
+void pstr_tos(){
   std::cout << "Pstr_to string Tests: ";
   mmap_lib::str hello("hello");
   std::string  hello1 = "hello";
@@ -332,22 +332,22 @@ void pstr_toS(){
   mmap_lib::str hello_world("hello_!_world");
   std::string hello_world1 = "hello_!_world";
   mmap_lib::str micro("micro-architecture");
-  std::string mcro1 = "micro-architecture";
+  std::string micro1 = "micro-architecture";
   mmap_lib::str foo("--foo1234567890!!!");
   std::string foo1 = "--foo1234567890!!!";
   uint8_t p = 0u ,f = 0u;
   (hello.to_s() == hello1) ? p++ : f++;
-  (hi.to_s() == hi1) ? p++ : f++;
+  //(hi.to_s() == hi1) ? p++ : f++;
   (hello_world.to_s() == hello_world1) ? p++ : f++;
-  (mcro.to_s() == mcro1) ? p++ : f++;
+  (micro.to_s() == micro1) ? p++ : f++;
   (foo.to_s() == foo1) ? p++ : f++;
   (foo.to_s() != hello1) ? p++ : f++;
   (hello_world.to_s() != hi1) ? p++ : f++;
   (hello.to_s() != foo1) ? p++ : f++;
-  (hi.to_s() != mcro1) ? p++ : f++;
-  (hello.to_s() != mcro1) ? p++ : f++;
-
+  (hi.to_s() != micro1) ? p++ : f++;
+  (hello.to_s() != micro1) ? p++ : f++;
   printf("passed(%02d/%02d), failed(%02d/%02d)\n", p, p+f, f, p+f);
+  
 }
 
 
@@ -358,7 +358,7 @@ int main(int argc, char **argv) {
  
   //pstr_at_operator();
   //pstr_isI();
-  pstr_toS();
+  pstr_tos();
   std::cout << "==========================" << std::endl;
   
  /* 

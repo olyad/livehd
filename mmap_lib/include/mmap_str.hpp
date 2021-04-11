@@ -588,10 +588,11 @@ public:
 //#if 0 
   std::string to_s() const{  // convert to string
   
-    std::string out ;
+    std::string out;
+    
     if (_size <= 14 ){
       //adding charactors from ptr_or_start based on the size of the string
-      for (int i =0; i<(_size>4) ? 4: _size; i++){
+      for (int i =0; i<((_size>4) ? 4: _size); i++){
         out += (ptr_or_start >> (8 * (3-i))) & 0xFF;
       }
       //if there are any characotrs in e, we add them as well
@@ -599,7 +600,7 @@ public:
         for(int i =0 ; i< (_size-4); i++){
           out += e[i];
         }
-      }
+      } 
     } else{
       //adding the first two charactors
       for (int i =0; i< 2; i++){
