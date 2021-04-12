@@ -582,7 +582,7 @@ public:
   }
 
 
-  int64_t     to_i() const{  // convert to integer
+  int64_t to_i() const{  // convert to integer
     if(this->is_i()){
       std::string temp = this->to_s();
       return stoi(temp);

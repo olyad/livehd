@@ -323,6 +323,30 @@ void pstr_isI(){
   (num_float.is_i() == false) ? p++ : f++;
   printf("passed(%02d/%02d), failed(%02d/%02d)\n", p, p+f, f, p+f);
 }
+void Pstr_toI(){
+  std::cout << "Pstr_toI Tests: " << std::endl;
+  std::cout << "you still did not test non int strings" << std::endl;
+  mmap_lib::str one("1234");
+  mmap_lib::str two("8828282882828282882828288282828");
+  mmap_lib::str three("-2345");
+  mmap_lib::str four("-987");
+  mmap_lib::str five("109000002");
+  mmap_lib::str six("-4332");
+  mmap_lib::str seven("8");
+  mmap_lib::str eight("-1");
+  mmap_lib::str nine("0");
+  uint8_t p = 0u ,f = 0u;
+  (one.to_i() == 8) ? p++ : f++;
+  (two.to_i() == 8) ? p++ : f++;
+  (three.to_i() == 8) ? p++ : f++;
+  (four.to_i() == 8) ? p++ : f++;
+  (five.to_i() == 8) ? p++ : f++;
+  (six.to_i() == 8) ? p++ : f++;
+  (seven.to_i() == 8) ? p++ : f++;
+  (eight.to_i() == 8) ? p++ : f++;
+  (nine.to_i() == 8) ? p++ : f++;
+  printf("passed(%02d/%02d), failed(%02d/%02d)\n", p, p+f, f, p+f);
+}
 void pstr_tos(){
   std::cout << "Pstr_to string Tests: ";
   mmap_lib::str hello("hello");
@@ -358,7 +382,8 @@ int main(int argc, char **argv) {
  
   //pstr_at_operator();
   //pstr_isI();
-  pstr_tos();
+  //Pstr_toI();
+  //pstr_tos();
   std::cout << "==========================" << std::endl;
   
  /* 
