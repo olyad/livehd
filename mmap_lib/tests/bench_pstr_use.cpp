@@ -363,7 +363,7 @@ void pstr_tos(){
   std::string foo1 = "--foo1234567890!!!";
   uint8_t p = 0u ,f = 0u;
   (hello.to_s() == hello1) ? p++ : f++;
-  //(hi.to_s() == hi1) ? p++ : f++;
+  (hi.to_s() == hi1) ? p++ : f++;
   (hello_world.to_s() == hello_world1) ? p++ : f++;
   (micro.to_s() == micro1) ? p++ : f++;
   (foo.to_s() == foo1) ? p++ : f++;
@@ -384,12 +384,13 @@ void pstr_rfind_char(){
   mmap_lib::str micro("micro-architecture");
   uint8_t p = 0u ,f = 0u;
   (hello.rfind('o', 3)  == -1) ? p++ : f++;
-  (hello.rfind('o', 0)  == 4) ? p++ : f++;
-  (hi.rfind('i', 2)  == 1) ? p++ : f++;
+  (hello.rfind('o', 5)  == 4) ? p++ : f++;
+  (hi.rfind('i', 2)  == 1) ? p++ : f++;// need to implement size < 4
   (hello_world.rfind('_', 11)  == 7) ? p++ : f++;
+  std::cout << (hello_world.rfind('_',11));
   (hello_world.rfind('_', 6)  == 5) ? p++ : f++;
   (hello_world.rfind('_', 4)  == -1) ? p++ : f++;
-  (micro.rfind('i', 5)  == 1) ? p++ : f++;
+  (micro.rfind('i', 1)  == 1) ? p++ : f++;
   (micro.rfind('i', 18)  == 10) ? p++ : f++;
   (micro.rfind('e', 18)  == 17) ? p++ : f++;
   (micro.rfind('e', 17)  == 17) ? p++ : f++;
@@ -407,7 +408,7 @@ int main(int argc, char **argv) {
   //Pstr_toI();
   //pstr_tos();
 
-  //pstr_rfind_char();
+  pstr_rfind_char();
   std::cout << "==========================" << std::endl;
   
  /* 

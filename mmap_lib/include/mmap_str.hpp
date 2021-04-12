@@ -474,6 +474,7 @@ public:
   	int count =0;
   	int retvalue = -1;
   	if (_size <=14){
+      //i have to fix the size < 4 problem 
   		for (int i = 0 ; i < ((_size>4) ? 4: _size);i++){
   			char first = ((ptr_or_start >> (8 * (_size -1))) & 0xFF);
   			if ((first == c) and (count <= pos )) retvalue = count;
@@ -481,7 +482,8 @@ public:
   		}
   		if (_size >4 ){
   			for (int i =0; i < (_size -4); i++){
-  				if ((e[i]) and (count <= pos)) retvalue = count ;
+  				if ((e[i] == c) and (count <= pos)) retvalue = count;
+          count ++;
   			}
   		}
   		return retvalue;
