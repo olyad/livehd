@@ -10,7 +10,7 @@
 
 #include "mmap_map.hpp"
 
-find_small_size(const str &my, const str &v, std::size_t pos = 0);
+//find_small_size(const str &my, const str &v, std::size_t pos = 0);
 
 namespace mmap_lib {
 
@@ -420,7 +420,7 @@ public:
     if (v._size >_size) return -1;
     //if size ==vsize and == is true return 0 else return -1
     if (_size<14){
-    	return find_small_size(this, v, pos);
+    	return -1;// find_small_size(this, v, pos);
     } else {
     	std::string my_string = this->to_s();
     	std::string their_string = v.to_s ();
@@ -521,8 +521,8 @@ public:
 
 
   int64_t     to_i() const{  // convert to integer
-    if(this.is_i()){
-      std::string temp = this.to_s();
+    if(this->is_i()){
+      std::string temp = this->to_s();
       return stoi(temp);
     }  
   
