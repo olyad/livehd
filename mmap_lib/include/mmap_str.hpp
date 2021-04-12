@@ -476,26 +476,26 @@ public:
   	if (_size <=14){
   		for (int i = 0 ; i < ((_size>4) ? 4: _size);i++){
   			char first = ((ptr_or_start >> (8 * (_size -1))) & 0xFF);
-  			if ((first == c) and (count >= pos )) retvalue = count;
+  			if ((first == c) and (count <= pos )) retvalue = count;
   			count ++;
   		}
   		if (_size >4 ){
   			for (int i =0; i < (_size -4); i++){
-  				if ((e[i]) and (count >= pos)) retvalue = count ;
+  				if ((e[i]) and (count <= pos)) retvalue = count ;
   			}
   		}
   		return retvalue;
   	} else {
   		for (int i = 0 ; i <  2;i++){
-  			if ((e[i] == c) and (count >= pos) ) retvalue = count ;
+  			if ((e[i] == c) and (count <= pos) ) retvalue = count ;
   			count ++;
   		}
   		for (int i = 0 ; i< (_size-10); i++){
-  			if ((string_vector.at(i)) and (count >= pos )) retvalue = count ;
+  			if ((string_vector.at(i)) and (count <= pos )) retvalue = count ;
   			count ++;
   		}
   		for (int i = 2 ; i <  10;i++){
-  			if ((e[i] == c) and (count >= pos) ) retvalue = count ;
+  			if ((e[i] == c) and (count <= pos) ) retvalue = count ;
   			count ++;
   		}
   		return retvalue;

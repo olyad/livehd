@@ -375,6 +375,26 @@ void pstr_tos(){
   printf("passed(%02d/%02d), failed(%02d/%02d)\n", p, p+f, f, p+f);
   
 }
+//////////////////////////////////////////////////////rfind/////////////////////////////
+void pstr_rfind_char(){
+  std::cout << "pstr_rfind_char Tests: ";
+  mmap_lib::str hello("hello");
+  mmap_lib::str hi("hi");
+  mmap_lib::str hello_world("hello_!_world");
+  mmap_lib::str micro("micro-architecture");
+  uint8_t p = 0u ,f = 0u;
+  (hello.rfind('o', 3)  == -1) ? p++ : f++;
+  (hello.rfind('o', 0)  == 4) ? p++ : f++;
+  (hi.rfind('i', 2)  == 1) ? p++ : f++;
+  (hello_world.rfind('_', 11)  == 7) ? p++ : f++;
+  (hello_world.rfind('_', 6)  == 5) ? p++ : f++;
+  (hello_world.rfind('_', 4)  == -1) ? p++ : f++;
+  (micro.rfind('i', 5)  == 1) ? p++ : f++;
+  (micro.rfind('i', 18)  == 10) ? p++ : f++;
+  (micro.rfind('e', 18)  == 17) ? p++ : f++;
+  (micro.rfind('e', 17)  == 17) ? p++ : f++;
+  printf("passed(%02d/%02d), failed(%02d/%02d)\n", p, p+f, f, p+f);
+}
 
 
 int main(int argc, char **argv) {
@@ -384,8 +404,10 @@ int main(int argc, char **argv) {
  
   //pstr_at_operator();
   //pstr_isI();
-  Pstr_toI();
+  //Pstr_toI();
   //pstr_tos();
+
+  //pstr_rfind_char();
   std::cout << "==========================" << std::endl;
   
  /* 
