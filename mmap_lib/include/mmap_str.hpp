@@ -430,7 +430,6 @@ public:
 
   }
  
-  #if 0
   std::size_t find(char c, std::size_t pos = 0) const{
   	int count =0;
   	if (_size <=14){
@@ -452,7 +451,7 @@ public:
   		}
   		for (int i = 0 ; i< (_size-10); i++){
   			if ((string_vector.at(i)) and (count >= pos )) return count ;
-  			count ++
+  			count ++;
   		}
   		for (int i = 2 ; i <  10;i++){
   			if ((e[i] == c) and (count >= pos) ) return count ;
@@ -466,6 +465,7 @@ public:
   constexpr std::size_t find(const char (&s)[N], std::size_t pos = 0) {
     return find(str(s), pos);
   }
+
 
   //OLY
   //last occurance 
@@ -492,7 +492,7 @@ public:
   		}
   		for (int i = 0 ; i< (_size-10); i++){
   			if ((string_vector.at(i)) and (count >= pos )) retvalue = count ;
-  			count ++
+  			count ++;
   		}
   		for (int i = 2 ; i <  10;i++){
   			if ((e[i] == c) and (count >= pos) ) retvalue = count ;
@@ -504,7 +504,7 @@ public:
   }
   std::size_t rfind(const char *s, std::size_t pos, std::size_t n) const;
   std::size_t rfind(const char *s, std::size_t pos = 0) const;
-  #endif
+
   // returns a pstr from two objects (pstr)
   //SLOAN
   static str concat(const str &a, const str &b);
