@@ -519,17 +519,15 @@ public:
     return true;
   }
 
-#if 0
+
   int64_t     to_i() const{  // convert to integer
     if(this.is_i()){
       std::string temp = this.to_s();
       return stoi(temp);
     }  
   
-  }
-
-#endif
-//#if 0 
+  } 
+  
   std::string to_s() const{  // convert to string
   
     std::string out;
