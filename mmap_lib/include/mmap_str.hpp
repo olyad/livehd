@@ -419,7 +419,7 @@ public:
 
     if (v._size >_size) return -1;
     //if size ==vsize and == is true return 0 else return -1
-    if (_size<14){
+    if (_size<=14){
     	return -1;// find_small_size(this, v, pos);
     } else {
     	std::string my_string = this->to_s();
@@ -430,19 +430,81 @@ public:
 
   }
  
+  #if 0
+  std::size_t find(char c, std::size_t pos = 0) const{
+  	int count =0;
+  	if (_size <=14){
+  		for (int i = 0 ; i < ((_size>4) ? 4: _size);i++){
+  			char first = ((ptr_or_start >> (8 * (_size -1))) & 0xFF);
+  			if ((first == c) and (count >= pos )) return count;
+  			count ++;
+  		}
+  		if (_size >4 ){
+  			for (int i =0; i < (_size -4); i++){
+  				if ((e[i]) and (count >= pos)) return count ;
+  			}
+  		}
+  		return -1;
+  	} else {
+  		for (int i = 0 ; i <  2;i++){
+  			if ((e[i] == c) and (count >= pos) ) return count ;
+  			count ++;
+  		}
+  		for (int i = 0 ; i< (_size-10); i++){
+  			if ((string_vector.at(i)) and (count >= pos )) return count ;
+  			count ++
+  		}
+  		for (int i = 2 ; i <  10;i++){
+  			if ((e[i] == c) and (count >= pos) ) return count ;
+  			count ++;
+  		}
+  		return -1;
 
-  std::size_t find(char c, std::size_t pos = 0) const;
+  	}
+  }
   template <std::size_t N>
   constexpr std::size_t find(const char (&s)[N], std::size_t pos = 0) {
     return find(str(s), pos);
   }
 
   //OLY
-  std::size_t rfind(const str &v, std::size_t pos = 0) const;
-  std::size_t rfind(char c, std::size_t pos = 0) const;
+  //last occurance 
+  std::size_t rfind(const str &v, std::size_t pos = 0) const;//should we just change to string and use normal rfind??
+  std::size_t rfind(char c, std::size_t pos = 0) const{
+  	int count =0;
+  	int retvalue = -1;
+  	if (_size <=14){
+  		for (int i = 0 ; i < ((_size>4) ? 4: _size);i++){
+  			char first = ((ptr_or_start >> (8 * (_size -1))) & 0xFF);
+  			if ((first == c) and (count >= pos )) retvalue = count;
+  			count ++;
+  		}
+  		if (_size >4 ){
+  			for (int i =0; i < (_size -4); i++){
+  				if ((e[i]) and (count >= pos)) retvalue = count ;
+  			}
+  		}
+  		return retvalue;
+  	} else {
+  		for (int i = 0 ; i <  2;i++){
+  			if ((e[i] == c) and (count >= pos) ) retvalue = count ;
+  			count ++;
+  		}
+  		for (int i = 0 ; i< (_size-10); i++){
+  			if ((string_vector.at(i)) and (count >= pos )) retvalue = count ;
+  			count ++
+  		}
+  		for (int i = 2 ; i <  10;i++){
+  			if ((e[i] == c) and (count >= pos) ) retvalue = count ;
+  			count ++;
+  		}
+  		return retvalue;
+
+  	}
+  }
   std::size_t rfind(const char *s, std::size_t pos, std::size_t n) const;
   std::size_t rfind(const char *s, std::size_t pos = 0) const;
-
+  #endif
   // returns a pstr from two objects (pstr)
   //SLOAN
   static str concat(const str &a, const str &b);
