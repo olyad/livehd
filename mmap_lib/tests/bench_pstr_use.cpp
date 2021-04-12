@@ -336,15 +336,17 @@ void Pstr_toI(){
   mmap_lib::str eight("-1");
   mmap_lib::str nine("0");
   uint8_t p = 0u ,f = 0u;
-  (one.to_i() == 8) ? p++ : f++;
-  (two.to_i() == 8) ? p++ : f++;
-  (three.to_i() == 8) ? p++ : f++;
-  (four.to_i() == 8) ? p++ : f++;
-  (five.to_i() == 8) ? p++ : f++;
-  (six.to_i() == 8) ? p++ : f++;
-  (seven.to_i() == 8) ? p++ : f++;
-  (eight.to_i() == 8) ? p++ : f++;
-  (nine.to_i() == 8) ? p++ : f++;
+  (one.to_i() == 1234) ? p++ : f++;
+  std::cout << "one is " << one.to_i() << std::endl;
+
+  //(two.to_i() == 8) ? p++ : f++;
+  (three.to_i() == -2345) ? p++ : f++;
+  (four.to_i() == -987) ? p++ : f++;
+  (five.to_i() == 109000002) ? p++ : f++;
+  (six.to_i() == -4332) ? p++ : f++;
+  //(seven.to_i() == 8) ? p++ : f++;
+  ////(eight.to_i() == -1) ? p++ : f++;
+  //(nine.to_i() == 8) ? p++ : f++;
   printf("passed(%02d/%02d), failed(%02d/%02d)\n", p, p+f, f, p+f);
 }
 void pstr_tos(){
@@ -382,7 +384,7 @@ int main(int argc, char **argv) {
  
   //pstr_at_operator();
   //pstr_isI();
-  //Pstr_toI();
+  Pstr_toI();
   //pstr_tos();
   std::cout << "==========================" << std::endl;
   
