@@ -476,7 +476,9 @@ public:
   	if (_size <=14){
       //i have to fix the size < 4 problem 
   		for (int i = 0 ; i < ((_size>4) ? 4: _size);i++){
-  			char first = ((ptr_or_start >> (8 * (_size -1))) & 0xFF);
+        int temp = (_size >= 4) ? 3 : (_size-1);
+        char first = (ptr_or_start >> (8 * (temp-i))) & 0xFF;
+        //char first = ((ptr_or_start >> (8 * (_size -1))) & 0xFF);
   			if ((first == c) and (count <= pos )) retvalue = count;
   			count ++;
   		}
@@ -528,17 +530,17 @@ public:
   
   bool is_i() const{ 
     if (_size < 14) {
-      char first = ((ptr_or_start >> (8 * (_size -1))) & 0xFF);
+      int temp = (_size >= 4) ? 3 : (_size-1);
+      char first = (ptr_or_start >> (8 * (temp))) & 0xFF;
+      //char first = ((ptr_or_start >> (8 * (_size -1))) & 0xFF);
       if (first !='-' and( first <'0' or first > '9')) {
-        std::cout << "Non-number char detected in ptr_or_start[0]\n";
         return false;
       }
       for (int i= 1; i<(_size>4?4:_size);i++){
-        switch ((ptr_or_start >> (8 * (3 - i))) & 0xFF){
+        switch ((ptr_or_start >> (8 * (temp - i))) & 0xFF){
           case '0'...'9':
             break;
           default:
-            std::cout << "Non-number char detected in ptr_or_start[1:3]\n";
             return false;
             break;
         }
@@ -548,7 +550,6 @@ public:
           case '0'...'9':
             break;
           default:
-            std::cout << "Non-number char detected in e\n";
             return false;
             break;
         }
@@ -556,7 +557,6 @@ public:
     } else {
       char first = e[0];
       if (first !='-' and( first <'0' or first > '9')) {
-        std::cout << "Non-number char detected in ptr_or_start[0]\n";
         return false;
       }
       for (int i = 1;i<10 ; i++){
@@ -564,7 +564,6 @@ public:
           case '0'...'9':
             break;
           default:
-            std::cout << "Non-number char detected in e\n";
             return false;
             break;
         } 
@@ -574,7 +573,6 @@ public:
           case '0'...'9':
             break;
           default:
-            std::cout << "Non-number char detected in e\n";
             return false;
             break;
         }
@@ -586,9 +584,13 @@ public:
 
   int64_t to_i() const{  // convert to integer
     if(this->is_i()){
+      //std::cout << "The input is an integer " << std::endl;
       std::string temp = this->to_s();
+      //std::cout << "The string is  " << _size << std::endl;
       return stoi(temp);
-    }  
+    }
+    std::cout << "The input is not an integer " << std::endl;
+    
   
   } 
   
@@ -599,7 +601,9 @@ public:
     if (_size <= 14 ){
       //adding charactors from ptr_or_start based on the size of the string
       for (int i =0; i<((_size>4) ? 4: _size); i++){
-        out += (ptr_or_start >> (8 * (3-i))) & 0xFF;
+        int temp = (_size >= 4) ? 3 : (_size-1); 
+        out += (ptr_or_start >> (8 * (temp-i))) & 0xFF;
+        //std::cout << "The out is  " << out << std::endl;
       }
       //if there are any characotrs in e, we add them as well
       if(_size>4){

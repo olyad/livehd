@@ -279,7 +279,7 @@ void pstrVcstr_noeq_tests() {
 }
 
 void pstr_at_operator(){
-  std::cout << "pstr_at_operator Operator [] Tests: ";
+  std::cout << "pstr_at_operator Operator [] Tests: " << std::endl;
   mmap_lib::str hello("hello");
   mmap_lib::str hi("hi");
   mmap_lib::str hello_world("hello_!_world");
@@ -305,7 +305,7 @@ void pstr_at_operator(){
 
 
 void pstr_isI(){
-  std::cout << "pstr_isI Tests: ";
+  std::cout << "pstr_isI Tests: " << std::endl;
   mmap_lib::str hello("hello");
   mmap_lib::str eight("888888");
   mmap_lib::str neg_one("-111111");
@@ -313,7 +313,11 @@ void pstr_isI(){
   mmap_lib::str not_int("-1234f");
   mmap_lib::str zero("-1234f");
   mmap_lib::str num_float("12.34");
+  mmap_lib::str neg_seven("-7");
+  mmap_lib::str twodig("12");
   uint8_t p = 0u ,f = 0u;
+  (neg_seven.is_i() == false) ? p++ : f++;
+  (twodig.is_i() == false) ? p++ : f++;
   (hello.is_i() == false) ? p++ : f++;
   (eight.is_i() == true) ? p++ : f++;
   (neg_one.is_i() == true) ? p++ : f++;
@@ -325,9 +329,8 @@ void pstr_isI(){
 }
 void Pstr_toI(){
   std::cout << "Pstr_toI Tests: " << std::endl;
-  std::cout << "you still did not test non int strings" << std::endl;
   mmap_lib::str one("1234");
-  mmap_lib::str two("8828282882828282882828288282828");
+  mmap_lib::str two("2147483647");//2^31
   mmap_lib::str three("-2345");
   mmap_lib::str four("-987");
   mmap_lib::str five("109000002");
@@ -335,22 +338,22 @@ void Pstr_toI(){
   mmap_lib::str seven("8");
   mmap_lib::str eight("-1");
   mmap_lib::str nine("0");
+  mmap_lib::str not_int("abcde");
   uint8_t p = 0u ,f = 0u;
+  not_int.to_i();//we expect a not int prntout here
   (one.to_i() == 1234) ? p++ : f++;
-  std::cout << "one is " << one.to_i() << std::endl;
-
-  //(two.to_i() == 8) ? p++ : f++;
+  (two.to_i() == 2147483647) ? p++ : f++;
   (three.to_i() == -2345) ? p++ : f++;
   (four.to_i() == -987) ? p++ : f++;
   (five.to_i() == 109000002) ? p++ : f++;
   (six.to_i() == -4332) ? p++ : f++;
-  //(seven.to_i() == 8) ? p++ : f++;
-  ////(eight.to_i() == -1) ? p++ : f++;
-  //(nine.to_i() == 8) ? p++ : f++;
+  (seven.to_i() == 8) ? p++ : f++;
+  (eight.to_i() == -1) ? p++ : f++;
+  (nine.to_i() == 0) ? p++ : f++;
   printf("passed(%02d/%02d), failed(%02d/%02d)\n", p, p+f, f, p+f);
 }
 void pstr_tos(){
-  std::cout << "Pstr_to string Tests: ";
+  std::cout << "Pstr_to string Tests: " << std::endl;
   mmap_lib::str hello("hello");
   std::string  hello1 = "hello";
   mmap_lib::str hi("hi");
@@ -377,7 +380,7 @@ void pstr_tos(){
 }
 //////////////////////////////////////////////////////rfind/////////////////////////////
 void pstr_rfind_char(){
-  std::cout << "pstr_rfind_char Tests: ";
+  std::cout << "pstr_rfind_char Tests: " << std::endl;
   mmap_lib::str hello("hello");
   mmap_lib::str hi("hi");
   mmap_lib::str hello_world("hello_!_world");
@@ -387,7 +390,6 @@ void pstr_rfind_char(){
   (hello.rfind('o', 5)  == 4) ? p++ : f++;
   (hi.rfind('i', 2)  == 1) ? p++ : f++;// need to implement size < 4
   (hello_world.rfind('_', 11)  == 7) ? p++ : f++;
-  std::cout << (hello_world.rfind('_',11));
   (hello_world.rfind('_', 6)  == 5) ? p++ : f++;
   (hello_world.rfind('_', 4)  == -1) ? p++ : f++;
   (micro.rfind('i', 1)  == 1) ? p++ : f++;
@@ -407,8 +409,8 @@ int main(int argc, char **argv) {
   //pstr_isI();
   //Pstr_toI();
   //pstr_tos();
-
-  pstr_rfind_char();
+  
+  //pstr_rfind_char();
   std::cout << "==========================" << std::endl;
   
  /* 
