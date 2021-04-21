@@ -513,7 +513,12 @@ public:
 
   //OLY
   //last occurance 
-  std::size_t rfind(const str &v, std::size_t pos = 0) const;//should we just change to string and use normal rfind??
+  std::size_t rfind(const str &v, std::size_t pos = 0) const{//should we just change to string and use normal rfind??
+    if (v._size >_size) return -1;
+    std::string my_string = this->to_s();
+    std::string their_string = v.to_s ();
+    return my_string.rfind(their_string);
+  }
   std::size_t rfind(char c, std::size_t pos = 0) const{
   	int count =0;
   	int retvalue = -1;
