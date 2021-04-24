@@ -409,6 +409,10 @@ int main(int argc, char **argv) {
   //pstr_isI();
   //Pstr_toI();
   //pstr_tos();
+  mmap_lib::str one("testinghsuk");
+  mmap_lib::str two("testingh");
+  int result = one.find(two);
+  printf("The result is %d \n", result);
   
   //pstr_rfind_char();
   std::cout << "==========================" << std::endl;
