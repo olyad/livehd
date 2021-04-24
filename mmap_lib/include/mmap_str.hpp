@@ -218,6 +218,28 @@ public:
     }
     std::cout << "}" << std::endl;
   }
+  void print_string() {
+    if (_size <= 13) {
+      uint8_t mx = posShifter(_size);
+      for (uint8_t i = mx; i >= 0, i <= 3; --i) {
+        std::cout << static_cast<char>((ptr_or_start >> (i*8)) & 0xff);
+      }
+      if (_size > 4) {
+        for (uint8_t j = 0; j < e.size(); ++j) {
+          std::cout << static_cast<char>(e[j]);
+        }
+      }
+    } else {
+      std::cout << char(e[0]) << char(e[1]);
+      for (auto i = 0; i < _size - 10; ++i) {
+        std::cout << static_cast<char>(string_vector.at(i + ptr_or_start));
+      }
+      for (uint8_t k = 2; k < 10; ++k) {
+        std::cout << static_cast<char>(e[k]);
+      }
+    }
+  }
+
   //=================================
 
 #if 0
