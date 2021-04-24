@@ -434,33 +434,38 @@ public:
         e_pos_self =0;
         e_pos_thier =0;
         if ((first == ((ptr_or_start >> (8 * (temp - i))) & 0xFF)) ){//and  ( pos >= i)) {
-          std::cout << "found first " << std::endl;
+          std::cout << "found first " << i << std::endl;
           retval = i;
           found_flag = true;
           for ( j = i+1,  k =1; j< 4; j++,k++){
             
             if (((v.ptr_or_start >> (8 * (vtemp - k))) & 0xFF) != ((ptr_or_start >> (8 * (temp - j))) & 0xFF)){//k starts from 1 
+              std::cout << "turned to false in 1" << std::endl;
               found_flag = false;
               break;
             }
           }
           if (found_flag == false) continue;
           while(k < v._size){
+            k++;
             if (k < 4){
               if(((v.ptr_or_start >> (8 * (vtemp - k))) & 0xFF)  != e[e_pos_self]) {
 
                 found_flag = false;
+                std::cout << "turned to false in 2" << std::endl;
                 break;
               }
             } else {
               if (v.e[e_pos_thier ] != e[e_pos_self]){
                 found_flag = false;
-                e_pos_thier++;
+                std::cout << "turned to false in 3" << std::endl;
+                //e_pos_thier++;
                 break;
               }
+              e_pos_thier++;
             }
             e_pos_self++;
-            k++;
+            //k++;
           }
           if (found_flag == true) return retval;
         }
