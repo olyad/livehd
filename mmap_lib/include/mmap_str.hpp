@@ -736,6 +736,7 @@ public:
   // h.get_str_after_last('l') = "d"
 
   str get_str_after_last(const char chr) const{
+#if 0
     size_t val = this->rfind(chr);
     std::string out;
     
@@ -775,8 +776,10 @@ public:
         return str(out);
     }
     //i dont know what to return if we cant find chr 
+#endif
   }
   str get_str_after_first(const char chr) const{
+    #if 0 
     size_t val = this->find(chr);
     std::string out;
     
@@ -815,7 +818,8 @@ public:
         }
         return str(out);
     }
-    //i dont know what to return if we cant find chr 
+    //i dont know what to return if we cant find chr
+   #endif 
   }
 
   str get_str_before_last(const char chr) const;
