@@ -415,6 +415,7 @@ public:
   //std::size_t find(const str &v, std::size_t pos = 0) const; 
 
 
+  
   std::size_t find(const str &v, std::size_t pos = 0) const{
     if (v._size >_size) return -1;
     //if size ==vsize and == is true return 0 else return -1
@@ -471,15 +472,15 @@ public:
         }
         //if (found_flag == true) return retval;
       }
-      /*
+      /////////////////////////////////////////////////////////////////////////////////////////
       if (_size > 4){
-        for (int m =0 ,k =1; m < (_size - 4);m++,k++){
+        for (int m =0 ; m < (_size - 4);m++){
           retval = 0;
           found_flag = false;
           e_pos_self =0;
           e_pos_thier =0;
           if (first == e[m] ){//and  ( pos >= i)) {
-            std::cout << "found first " << std::endl;
+            std::cout << "found first in e[m]" << std::endl;
             retval = i;
             found_flag = true;
             for ( j = m+1,  k =1; k< 4; j++,k++){
@@ -490,6 +491,7 @@ public:
               }
             }
             while(k < v._size){
+              k++;
               if (k < 4){
                 if(((v.ptr_or_start >> (8 * (vtemp - k))) & 0xFF)  != e[e_pos_self]) {
 
@@ -499,17 +501,18 @@ public:
               } else {
                 if (v.e[e_pos_thier ] != e[e_pos_self]){
                   found_flag = false;
-                  e_pos_thier++;
+                  
                   break;
                 }
+                e_pos_thier++;
               }
               e_pos_self++;
-              k++;
+              
             }
             if (found_flag == true) return retval;
           }
         }
-      }*/
+      }/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
       //if you havent found the string at this point and this string is < 4 chaars then find returns -1
       //if((_size < 4 ) and (found_flag == false)) return -1;
       std::cout << "here" << std::endl;
@@ -520,6 +523,7 @@ public:
       return my_string.find(their_string);
     }
   }
+  
  
   std::size_t find(char c, std::size_t pos = 0) const{
   	int count =0;
