@@ -405,7 +405,6 @@ TEST_F(Mmap_str_test, to_s_to_i) {
     EXPECT_EQ(numref, numh);
   }
 }
-
 #if 0
 TEST_F(Mmap_str_test, concat_append) {
   for (auto i = 0; i < RNDN; ++i) {
@@ -432,7 +431,7 @@ TEST_F(Mmap_str_test, concat_append) {
 
 
 // Failing some tests. returning -1 at the wrong time
-#if 1
+
 TEST_F(Mmap_str_test, find) {
   for (auto i = 0; i < RNDN; ++i) { 
     std::string curr = s_get(i);
@@ -464,7 +463,7 @@ TEST_F(Mmap_str_test, find) {
     mmap_lib::str curr_sub(stable_c);
     mmap_lib::str next_sub(stable_n);
 
-    #if 1
+    
     std::cout << "curr_str: ";
     curr_str.print_string();
     std::cout << "\ncurr_sub: ";
@@ -474,7 +473,7 @@ TEST_F(Mmap_str_test, find) {
     std::cout << "\nnext_sub: ";
     next_sub.print_string();
     std::cout << "\n";
-    #endif
+    
 
     // find(const str& a)
     EXPECT_EQ(curr_str.find(curr_sub), curr.find(stable_c));
