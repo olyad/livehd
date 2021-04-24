@@ -9,7 +9,7 @@
 #include "fmt/format.h"
 #include "gtest/gtest.h"
 
-#define RNDN 200 // number of rand strings
+#define RNDN 20 // number of rand strings
 #define MaxLen 30 // max len + 1 for rand strings
 #define MaxNum 10 
 #define MinLen 2  // min len for rand strings
@@ -406,7 +406,7 @@ TEST_F(Mmap_str_test, to_s_to_i) {
   }
 }
 
-
+#if 0
 TEST_F(Mmap_str_test, concat_append) {
   for (auto i = 0; i < RNDN; ++i) {
     std::string one = s_get(i), two = s_get((i+1)%RNDN);
@@ -482,10 +482,9 @@ TEST_F(Mmap_str_test, find) {
     
   }
 }
-#endif
 
 
-#if 0
+
 TEST_F(Mmap_str_test, const_expr_trival_cmp) {
 
   mmap_lib::str long_a("hello_hello_hello_hello_hello_hello"); // not right, but it should compile

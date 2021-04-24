@@ -436,12 +436,12 @@ public:
  
   //std::size_t find(const str &v, std::size_t pos = 0) const; 
 
-
+/*
   
   std::size_t find(const str &v, std::size_t pos = 0) const{
     if (v._size >_size) return -1;
     //if size ==vsize and == is true return 0 else return -1
-    if (_size<14){
+    if (_size <= 14){
       int vtemp = (v._size >=4 ) ? 3 : (v._size -1);
       int temp = (_size >=4 ) ? 3 : (_size -1);
       char first = ((v.ptr_or_start >> (8 * (vtemp))) & 0xFF);//different ways
@@ -459,9 +459,10 @@ public:
         if ((first == ((ptr_or_start >> (8 * (temp - i))) & 0xFF)) ){//and  ( pos >= i)) {
           std::cout << "found first " << i << std::endl;
           retval = i;
+          if (v._size ==1 ) return retval;
           found_flag = true;
           for ( j = i+1,  k =1; j< 4; j++,k++){
-            
+            if (k >v._size) break;
             if (((v.ptr_or_start >> (8 * (vtemp - k))) & 0xFF) != ((ptr_or_start >> (8 * (temp - j))) & 0xFF)){//k starts from 1 
               std::cout << "turned to false in 1" << std::endl;
               found_flag = false;
@@ -470,7 +471,7 @@ public:
           }
           if (found_flag == false) continue;
           while(k < v._size){
-            k++;
+            //k++;
             if (k < 4){
               if(((v.ptr_or_start >> (8 * (vtemp - k))) & 0xFF)  != e[e_pos_self]) {
 
@@ -488,7 +489,7 @@ public:
               e_pos_thier++;
             }
             e_pos_self++;
-            //k++;
+            k++;
           }
           if (found_flag == true) return retval;
         }
@@ -503,15 +504,17 @@ public:
           e_pos_thier =0;
           if (first == e[m] ){//and  ( pos >= i)) {
             std::cout << "found first in e[m]" << std::endl;
-            retval = i;
+            retval = m + 4;
+            if (v._size ==1 ) return retval;
             found_flag = true;
             for ( j = m+1,  k =1; k< 4; j++,k++){
-              
+              if (k >v._size) break;
               if (((v.ptr_or_start >> (8 * (vtemp - k))) & 0xFF) != e[j] ){//k starts from 1 
                 found_flag = false;
                 break;
               }
             }
+            e_pos_self = j;
             while(k < v._size){
               k++;
               if (k < 4){
@@ -546,7 +549,57 @@ public:
     }
   }
   
- 
+ */
+
+
+  std::size_t find(const str &v, std::size_t pos = 0) const{
+    if (v._size >_size) return -1;
+    //if size ==vsize and == is true return 0 else return -1
+    if (_size<14){
+      int vtemp = (v._size >=4 ) ? 3 : (v._size -1);
+      int temp = (_size >=4 ) ? 3 : (_size -1);
+      char first = ((v.ptr_or_start >> (8 * (vtemp))) & 0xFF);//different ways
+      //std::cout << "first char is :" << first << std::endl;
+      size_t retval = 0;
+      bool found_flag = false;
+      int i,j,k;
+      int e_pos_self =0;
+      int e_pos_thier =0;
+      for (  i =0; i <4 ; i++){
+        retval = 0;
+        found_flag = false;
+        e_pos_self =0;
+        e_pos_thier =0;
+        if ((first == ((ptr_or_start >> (8 * (temp - i))) & 0xFF)) ){//and  ( pos >= i)) {
+          //std::cout << "found first " << i << std::endl;
+          retval = i;
+          if (v._size ==1 ) return retval;
+          found_flag = true;
+          if (v._size == 1)return retval;
+          for ( j = i+1,  k =1; j< 4; j++,k++){
+            if (k >= v._size ) break;
+            if (((v.ptr_or_start >> (8 * (vtemp - k))) & 0xFF) != ((ptr_or_start >> (8 * (temp - j))) & 0xFF)){//k starts from 1 
+              //std::cout << "turned to false in 1" << std::endl;
+              found_flag = false;
+              break;
+            }
+          }
+          if (found_flag == false) continue;
+          while(k < v._size){
+            //k++;
+            if (k < 4){
+              //std::cout << "did i make it here " << std::endl;
+              if(((v.ptr_or_start >> (8 * (vtemp - k))) & 0xFF)  != e[e_pos_self]) {
+
+                found_flag = false;
+                //std::cout << "turned to false in 2" << std::endl;
+                break;
+              }
+            } else {
+              if (v.e[e_pos_thier ] != e[e_pos_self]){
+                found_flag = false;
+                //std::cout << "turned to false in 3" << e_pos_thier << e_pos_self << std::endl;
+                //e_pos_thier++;
   std::size_t find(char c, std::size_t pos = 0) const{
   	int count =0;
   	if (_size <=14){
@@ -720,7 +773,7 @@ public:
   
     std::string out;
     
-    if (_size <= 14 ){
+    if (_size <= 13 ){
       //adding charactors from ptr_or_start based on the size of the string
       for (int i =0; i<((_size>4) ? 4: _size); i++){
         int temp = (_size >= 4) ? 3 : (_size-1); 
