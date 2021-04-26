@@ -891,7 +891,15 @@ public:
 #if 1
     size_t val = this->rfind(chr);
     std::string out;
+    for (size_t i = val; i< _size; i++){
+      out += (*this)[i];
+    }
+    return str(out);
+#endif
+#if 0
     
+    size_t val = this->rfind(chr);
+    std::string out;
     if (val != -1){
           if (_size <= 13 ){
           //adding charactors from ptr_or_start based on the size of the string
@@ -932,6 +940,14 @@ public:
   }
   str get_str_after_first(const char chr) const{
     #if 1
+    size_t val = this->find(chr);
+    std::string out;
+    for (size_t i = val; i< _size; i++){
+      out += (*this)[i];
+    }
+    return str(out);
+#endif
+    #if 0
     size_t val = this->find(chr);
     std::string out;
     
@@ -975,7 +991,15 @@ public:
   }
 
   str get_str_before_last(const char chr) const{
-    #if 1 
+    #if 1
+    size_t val = this->rfind(chr);
+    std::string out;
+    for (size_t i = 0; i< val; i++){
+      out += (*this)[i];
+    }
+    return str(out);
+#endif
+    #if 0 
     size_t val = this->rfind(chr);
     //if (val ==0 ) return;
     std::string out;
@@ -1026,7 +1050,15 @@ public:
    #endif 
   }
   str get_str_before_first(const char chr) const{
-    #if 1
+  #if 1
+    size_t val = this->find(chr);
+    std::string out;
+    for (size_t i = 0; i< val; i++){
+      out += (*this)[i];
+    }
+    return str(out);
+  #endif
+    #if 0
     size_t val = this->find(chr);
     //if (val ==0 ) return;
     std::string out;
