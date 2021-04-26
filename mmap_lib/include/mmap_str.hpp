@@ -888,12 +888,12 @@ public:
   // h.get_str_after_last('l') = "d"
 
   str get_str_after_last(const char chr) const{
-#if 1
+#if 0
     size_t val = this->rfind(chr);
     std::string out;
     
     if (val != -1){
-          if (_size <= 14 ){
+          if (_size <= 13 ){
           //adding charactors from ptr_or_start based on the size of the string
           if (val <= 3)
           for (int i =val; i<((_size>4) ? 4: _size); i++){
@@ -931,12 +931,12 @@ public:
 #endif
   }
   str get_str_after_first(const char chr) const{
-    #if 1 
+    #if 0 
     size_t val = this->find(chr);
     std::string out;
     
     if (val != -1){
-          if (_size <= 14 ){
+          if (_size <= 13 ){
           //adding charactors from ptr_or_start based on the size of the string
           if (val <= 3)
           for (int i =val; i<((_size>4) ? 4: _size); i++){
@@ -974,8 +974,106 @@ public:
    #endif 
   }
 
-  str get_str_before_last(const char chr) const;
-  str get_str_before_first(const char chr) const;
+  str get_str_before_last(const char chr) const{
+    #if 0 
+    size_t val = this->rfind(chr);
+    if (val ==0 ) return;
+    std::string out;
+    size_t counter =0;
+    if (val != -1){
+    	if (_size <= 13 ){
+      //adding charactors from ptr_or_start based on the size of the string
+		      for (int i =0; i<((_size>4) ? 4: _size); i++){
+		      	counter++;
+		        int temp = (_size >= 4) ? 3 : (_size-1); 
+		        out += (ptr_or_start >> (8 * (temp-i))) & 0xFF;
+		        if(val == counter) return srr(out);
+		        //std::cout << "The out is  " << out << std::endl;
+		      }
+		      //if there are any characotrs in e, we add them as well
+		      if(_size>4){
+		        for(int i =0 ; i< (_size-4); i++){
+		        	counter++;
+		        	out += e[i];
+		        	if(val == counter) return srr(out);
+		        }
+		      } 
+    } else{
+	      //adding the first two charactors
+	      for (int i =0; i< 2; i++){
+	      	counter++
+	        out += e[i];
+	        if(val == counter) return srr(out);
+	      }
+	      //adding the middle section of the string from string vector
+	      for (int i = ptr_or_start; i < (ptr_or_start + _size - 10); i++) {   
+	        counter++;
+	        out += string_vector.at(i);
+	        if(val == counter) return srr(out);
+	      }
+	      //adding the last 8 charactors
+	      for (int i = 2; i<10; i++){
+	      	counter++;
+	        out += e[i];
+	        if(val == counter) return srr(out);
+	      }
+
+    }
+        return str(out);
+    }
+    //i dont know what to return if we cant find chr
+   #endif 
+  }
+  str get_str_before_first(const char chr) const{
+    #if 0 
+    size_t val = this->find(chr);
+    if (val ==0 ) return;
+    std::string out;
+    size_t counter =0;
+    if (val != -1){
+    	if (_size <= 13 ){
+      //adding charactors from ptr_or_start based on the size of the string
+		      for (int i =0; i<((_size>4) ? 4: _size); i++){
+		      	counter++;
+		        int temp = (_size >= 4) ? 3 : (_size-1); 
+		        out += (ptr_or_start >> (8 * (temp-i))) & 0xFF;
+		        if(val == counter) return srr(out);
+		        //std::cout << "The out is  " << out << std::endl;
+		      }
+		      //if there are any characotrs in e, we add them as well
+		      if(_size>4){
+		        for(int i =0 ; i< (_size-4); i++){
+		        	counter++;
+		        	out += e[i];
+		        	if(val == counter) return srr(out);
+		        }
+		      } 
+    } else{
+	      //adding the first two charactors
+	      for (int i =0; i< 2; i++){
+	      	counter++
+	        out += e[i];
+	        if(val == counter) return srr(out);
+	      }
+	      //adding the middle section of the string from string vector
+	      for (int i = ptr_or_start; i < (ptr_or_start + _size - 10); i++) {   
+	        counter++;
+	        out += string_vector.at(i);
+	        if(val == counter) return srr(out);
+	      }
+	      //adding the last 8 charactors
+	      for (int i = 2; i<10; i++){
+	      	counter++;
+	        out += e[i];
+	        if(val == counter) return srr(out);
+	      }
+
+    }
+        return str(out);
+    }
+    //i dont know what to return if we cant find chr
+   #endif 
+  }
 
   //?
   str substr(size_t start) const;
