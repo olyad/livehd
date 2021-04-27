@@ -741,6 +741,7 @@ public:
   
   str get_str_after_first(const char chr) const{
     size_t val = this->find(chr);
+    std::cout << "first occurance is :" << val << std::endl;
     std::string out;
     for (size_t i = val; i< _size; i++){
       out += (*this)[i];

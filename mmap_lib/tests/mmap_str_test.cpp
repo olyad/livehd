@@ -507,7 +507,7 @@ TEST_F(Mmap_str_test, split) {
   }
 }
 
-#if 0
+#if 1
 TEST_F(Mmap_str_test, get_str_before_after) {
   for (auto i = 0; i < RNDN; ++i) {
     std::string temp = s_get(i);
