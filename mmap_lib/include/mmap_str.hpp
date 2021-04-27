@@ -489,6 +489,11 @@ public:
   
                   
   std::size_t find(char c, std::size_t pos = 0) const{
+    for (size_t i =0; i<_size;i++){
+      if ((*this)[i] == c) return i;
+    }
+    return -1;
+    #if 0
   	int count =0;
   	if (_size <=14){
   		for (int i = 0 ; i < ((_size>4) ? 4: _size);i++){
@@ -518,6 +523,7 @@ public:
   		return -1;
 
   	}
+    #endif
   }
 
   template <std::size_t N>
