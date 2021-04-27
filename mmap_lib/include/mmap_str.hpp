@@ -749,7 +749,8 @@ public:
     size_t val = this->find(chr);
     std::cout << "first occurance is :" << val << std::endl;
     std::string out;
-    for (size_t i = val; i< _size; i++){
+    if (val >= (_size - 1)) return str(out);
+    for (size_t i = val+1; i< _size; i++){
       out += (*this)[i];
     }
     return str(out);
