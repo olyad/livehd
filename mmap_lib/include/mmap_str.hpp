@@ -540,6 +540,13 @@ public:
     return my_string.rfind(their_string);
   }
   std::size_t rfind(char c, std::size_t pos = 0) const{
+    size_t returnval = -1;
+    for (size_t i =0; i<_size;i++){
+      if ((*this)[i] == c) returnval = i;
+    }
+    return returnval;
+
+    #if 0
   	int count =0;
   	int retvalue = -1;
   	if (_size <=14){
@@ -574,6 +581,7 @@ public:
   		return retvalue;
 
   	}
+    #endif
   }
   std::size_t rfind(const char *s, std::size_t pos, std::size_t n) const;
   std::size_t rfind(const char *s, std::size_t pos = 0) const;
@@ -738,8 +746,10 @@ public:
 
   str get_str_after_last(const char chr) const{
     size_t val = this->rfind(chr);
+    std::cout << "first occurance is :" << val << std::endl;
     std::string out;
-    for (size_t i = val; i< _size; i++){
+    if (val >= (_size - 1)) return str(out);
+    for (size_t i = val+1; i< _size; i++){
       out += (*this)[i];
     }
     return str(out);
