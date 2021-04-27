@@ -372,6 +372,17 @@ public:
   }
 
   std::size_t find(const str &v, std::size_t pos = 0) const{
+    char first = str[0];
+    for (size_t i = ((pos == 0) ? 1 : pos); i< _size ; i++){
+      if (first == (*this)[i]){
+        for (size_t j = i, k =1; j < i+ str._size ;j++,k++){
+           if ((*this)[j] != str[k]) break;
+           if (j == (i + str._size -1)) return i;
+        }
+      }
+    }
+    return -1;
+    #if 0
     if (v._size >_size) return -1;
     //if size ==vsize and == is true return 0 else return -1
     if (_size<14){
@@ -485,6 +496,7 @@ public:
       std::string their_string = v.to_s();
       return my_string.find(their_string);
     }
+    #endif
   }
   
                   
@@ -493,37 +505,6 @@ public:
       if ((*this)[i] == c) return i;
     }
     return -1;
-    #if 0
-  	int count =0;
-  	if (_size <=14){
-  		for (int i = 0 ; i < ((_size>4) ? 4: _size);i++){
-  			char first = ((ptr_or_start >> (8 * (_size -1))) & 0xFF);
-  			if ((first == c) and (count >= pos )) return count;
-  			count ++;
-  		}
-  		if (_size >4 ){
-  			for (int i =0; i < (_size -4); i++){
-  				if ((e[i]) and (count >= pos)) return count ;
-  			}
-  		}
-  		return -1;
-  	} else {
-  		for (int i = 0 ; i <  2;i++){
-  			if ((e[i] == c) and (count >= pos) ) return count ;
-  			count ++;
-  		}
-  		for (int i = 0 ; i< (_size-10); i++){
-  			if ((string_vector.at(i)) and (count >= pos )) return count ;
-  			count ++;
-  		}
-  		for (int i = 2 ; i <  10;i++){
-  			if ((e[i] == c) and (count >= pos) ) return count ;
-  			count ++;
-  		}
-  		return -1;
-
-  	}
-    #endif
   }
 
   template <std::size_t N>
@@ -532,57 +513,22 @@ public:
   }
 
 
-  //last occurance 
+  //last occurance
   std::size_t rfind(const str &v, std::size_t pos = 0) const{//should we just change to string and use normal rfind??
     if (v._size >_size) return -1;
     std::string my_string = this->to_s();
     std::string their_string = v.to_s ();
     return my_string.rfind(their_string);
   }
+
   std::size_t rfind(char c, std::size_t pos = 0) const{
     size_t returnval = -1;
     for (size_t i =0; i<_size;i++){
       if ((*this)[i] == c) returnval = i;
     }
     return returnval;
-
-    #if 0
-  	int count =0;
-  	int retvalue = -1;
-  	if (_size <=14){
-      //i have to fix the size < 4 problem 
-  		for (int i = 0 ; i < ((_size>4) ? 4: _size);i++){
-        int temp = (_size >= 4) ? 3 : (_size-1);
-        char first = (ptr_or_start >> (8 * (temp-i))) & 0xFF;
-        //char first = ((ptr_or_start >> (8 * (_size -1))) & 0xFF);
-  			if ((first == c) and (count <= pos )) retvalue = count;
-  			count ++;
-  		}
-  		if (_size >4 ){
-  			for (int i =0; i < (_size -4); i++){
-  				if ((e[i] == c) and (count <= pos)) retvalue = count;
-          count ++;
-  			}
-  		}
-  		return retvalue;
-  	} else {
-  		for (int i = 0 ; i <  2;i++){
-  			if ((e[i] == c) and (count <= pos) ) retvalue = count ;
-  			count ++;
-  		}
-  		for (int i = 0 ; i< (_size-10); i++){
-  			if ((string_vector.at(i)) and (count <= pos )) retvalue = count ;
-  			count ++;
-  		}
-  		for (int i = 2 ; i <  10;i++){
-  			if ((e[i] == c) and (count <= pos) ) retvalue = count ;
-  			count ++;
-  		}
-  		return retvalue;
-
-  	}
-    #endif
   }
+
   std::size_t rfind(const char *s, std::size_t pos, std::size_t n) const;
   std::size_t rfind(const char *s, std::size_t pos = 0) const;
 
@@ -746,7 +692,6 @@ public:
 
   str get_str_after_last(const char chr) const{
     size_t val = this->rfind(chr);
-    std::cout << "first occurance is :" << val << std::endl;
     std::string out;
     if (val >= (_size - 1)) return str(out);
     for (size_t i = val+1; i< _size; i++){
@@ -757,7 +702,6 @@ public:
   
   str get_str_after_first(const char chr) const{
     size_t val = this->find(chr);
-    std::cout << "first occurance is :" << val << std::endl;
     std::string out;
     if (val >= (_size - 1)) return str(out);
     for (size_t i = val+1; i< _size; i++){
